@@ -423,7 +423,7 @@ struct ProducePCMPhoton {
       // auto const& collision = ele.collision();
       auto bc = collision.bc_as<aod::BCsWithTimestamps>();
       CheckAndUpdate(bc.runNumber(), bc.timestamp());
-      
+
       // Define o2 fitter, 2-prong
       o2::vertexing::DCAFitterN<2> fitter;
       fitter.setBz(d_bz); // in kG
