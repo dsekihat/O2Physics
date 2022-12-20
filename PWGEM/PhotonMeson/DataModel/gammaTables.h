@@ -43,10 +43,10 @@ using EMReducedEvent = EMReducedEvents::iterator;
 
 namespace v0leg
 {
-DECLARE_SOA_INDEX_COLUMN(Collision, collision);           //!
-DECLARE_SOA_INDEX_COLUMN(Track, track);                   //!
-DECLARE_SOA_COLUMN(Sign, sign, int);                      //!
-DECLARE_SOA_COLUMN(IsAmbTrack, isAmbTrack, bool);         //!
+DECLARE_SOA_INDEX_COLUMN(Collision, collision);   //!
+DECLARE_SOA_INDEX_COLUMN(Track, track);           //!
+DECLARE_SOA_COLUMN(Sign, sign, int);              //!
+DECLARE_SOA_COLUMN(IsAmbTrack, isAmbTrack, bool); //!
 
 } // namespace v0leg
 // reconstructed v0 information
@@ -270,39 +270,39 @@ DECLARE_SOA_TABLE(SkimEMCClusters, "AOD", "SKIMEMCCLUSTERS", //!
 
 namespace phoscluster
 {
-DECLARE_SOA_INDEX_COLUMN(Collision, collision);                        //! collisionID used as index for matched clusters
-DECLARE_SOA_INDEX_COLUMN(BC, bc);                                      //! bunch crossing ID used as index for ambiguous clusters
+DECLARE_SOA_INDEX_COLUMN(Collision, collision);                                     //! collisionID used as index for matched clusters
+DECLARE_SOA_INDEX_COLUMN(BC, bc);                                                   //! bunch crossing ID used as index for ambiguous clusters
 DECLARE_SOA_INDEX_COLUMN_FULL(MatchedTrack, matchedTrack, int, Tracks, "_Matched"); //! matched track index
-DECLARE_SOA_COLUMN(E, e, float);                                       //! cluster energy (GeV)
-DECLARE_SOA_COLUMN(X, x, float);                                       //! cluster hit position in ALICE global coordinate
-DECLARE_SOA_COLUMN(Y, y, float);                                       //! cluster hit position in ALICE global coordinate
-DECLARE_SOA_COLUMN(Z, z, float);                                       //! cluster hit position in ALICE global coordinate
-DECLARE_SOA_COLUMN(M02, m02, float);                                   //! shower shape long axis
-DECLARE_SOA_COLUMN(M20, m20, float);                                   //! shower shape short axis
-DECLARE_SOA_COLUMN(NCells, nCells, int);                               //! number of cells in cluster
-DECLARE_SOA_COLUMN(Time, time, float);                                 //! cluster time (ns)
-DECLARE_SOA_COLUMN(DistanceToBadChannel, distanceToBadChannel, float); //! distance to bad channel in cm
-DECLARE_SOA_COLUMN(NLM, nlm, int);                                     //! number of local maxima
-DECLARE_SOA_DYNAMIC_COLUMN(Px, px, [](float e, float x, float y, float z, float m) -> float { return x/RecoDecay::sqrtSumOfSquares(x, y, z) * sqrt(e*e - m*m); });
-DECLARE_SOA_DYNAMIC_COLUMN(Py, py, [](float e, float x, float y, float z, float m) -> float { return y/RecoDecay::sqrtSumOfSquares(x, y, z) * sqrt(e*e - m*m); });
-DECLARE_SOA_DYNAMIC_COLUMN(Pz, pz, [](float e, float x, float y, float z, float m) -> float { return z/RecoDecay::sqrtSumOfSquares(x, y, z) * sqrt(e*e - m*m); });
-DECLARE_SOA_DYNAMIC_COLUMN(Pt, pt, [](float e, float x, float y, float z, float m) -> float { return RecoDecay::sqrtSumOfSquares(x, y)/RecoDecay::sqrtSumOfSquares(x, y, z) * sqrt(e*e - m*m); });
+DECLARE_SOA_COLUMN(E, e, float);                                                    //! cluster energy (GeV)
+DECLARE_SOA_COLUMN(X, x, float);                                                    //! cluster hit position in ALICE global coordinate
+DECLARE_SOA_COLUMN(Y, y, float);                                                    //! cluster hit position in ALICE global coordinate
+DECLARE_SOA_COLUMN(Z, z, float);                                                    //! cluster hit position in ALICE global coordinate
+DECLARE_SOA_COLUMN(M02, m02, float);                                                //! shower shape long axis
+DECLARE_SOA_COLUMN(M20, m20, float);                                                //! shower shape short axis
+DECLARE_SOA_COLUMN(NCells, nCells, int);                                            //! number of cells in cluster
+DECLARE_SOA_COLUMN(Time, time, float);                                              //! cluster time (ns)
+DECLARE_SOA_COLUMN(DistanceToBadChannel, distanceToBadChannel, float);              //! distance to bad channel in cm
+DECLARE_SOA_COLUMN(NLM, nlm, int);                                                  //! number of local maxima
+DECLARE_SOA_DYNAMIC_COLUMN(Px, px, [](float e, float x, float y, float z, float m) -> float { return x / RecoDecay::sqrtSumOfSquares(x, y, z) * sqrt(e * e - m * m); });
+DECLARE_SOA_DYNAMIC_COLUMN(Py, py, [](float e, float x, float y, float z, float m) -> float { return y / RecoDecay::sqrtSumOfSquares(x, y, z) * sqrt(e * e - m * m); });
+DECLARE_SOA_DYNAMIC_COLUMN(Pz, pz, [](float e, float x, float y, float z, float m) -> float { return z / RecoDecay::sqrtSumOfSquares(x, y, z) * sqrt(e * e - m * m); });
+DECLARE_SOA_DYNAMIC_COLUMN(Pt, pt, [](float e, float x, float y, float z, float m) -> float { return RecoDecay::sqrtSumOfSquares(x, y) / RecoDecay::sqrtSumOfSquares(x, y, z) * sqrt(e * e - m * m); });
 DECLARE_SOA_DYNAMIC_COLUMN(Eta, eta, [](float x, float y, float z) -> float { return RecoDecay::eta(array{x, y, z}); });
 DECLARE_SOA_DYNAMIC_COLUMN(Phi, phi, [](float x, float y) -> float { return RecoDecay::phi(x, y); });
 } // namespace phoscluster
 
 DECLARE_SOA_TABLE(PHOSClusters, "AOD", "PHOSCLUSTERS", //!
-    o2::soa::Index<> ,phoscluster::CollisionId ,phoscluster::BCId, phoscluster::MatchedTrackId,
-    phoscluster::E ,phoscluster::X ,phoscluster::Y ,phoscluster::Z,
-    phoscluster::M02 ,phoscluster::M20 ,phoscluster::NCells ,
-    phoscluster::Time ,phoscluster::DistanceToBadChannel ,phoscluster::NLM,
-    // dynamic column
-    phoscluster::Px<phoscluster::E, phoscluster::X, phoscluster::Y, phoscluster::Z>,
-    phoscluster::Py<phoscluster::E, phoscluster::X, phoscluster::Y, phoscluster::Z>,
-    phoscluster::Pz<phoscluster::E, phoscluster::X, phoscluster::Y, phoscluster::Z>,
-    phoscluster::Pt<phoscluster::E, phoscluster::X, phoscluster::Y, phoscluster::Z>,
-    phoscluster::Eta<phoscluster::X, phoscluster::Y, phoscluster::Z>,
-    phoscluster::Phi<phoscluster::X, phoscluster::Y>);
+                  o2::soa::Index<>, phoscluster::CollisionId, phoscluster::BCId, phoscluster::MatchedTrackId,
+                  phoscluster::E, phoscluster::X, phoscluster::Y, phoscluster::Z,
+                  phoscluster::M02, phoscluster::M20, phoscluster::NCells,
+                  phoscluster::Time, phoscluster::DistanceToBadChannel, phoscluster::NLM,
+                  // dynamic column
+                  phoscluster::Px<phoscluster::E, phoscluster::X, phoscluster::Y, phoscluster::Z>,
+                  phoscluster::Py<phoscluster::E, phoscluster::X, phoscluster::Y, phoscluster::Z>,
+                  phoscluster::Pz<phoscluster::E, phoscluster::X, phoscluster::Y, phoscluster::Z>,
+                  phoscluster::Pt<phoscluster::E, phoscluster::X, phoscluster::Y, phoscluster::Z>,
+                  phoscluster::Eta<phoscluster::X, phoscluster::Y, phoscluster::Z>,
+                  phoscluster::Phi<phoscluster::X, phoscluster::Y>);
 using PHOSCluster = PHOSClusters::iterator;
 
 } // namespace o2::aod
