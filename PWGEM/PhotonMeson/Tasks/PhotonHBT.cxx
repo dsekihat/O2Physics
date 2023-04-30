@@ -327,7 +327,7 @@ struct PhotonHBT {
           } // end of different photon combinations
         }   // end of cut2 loop
       }     // end of cut1 loop
-    } // end of different collision combinations
+    }       // end of different collision combinations
   }
 
   Preslice<MyV0Photons> perCollision_pcm = aod::v0photon::collisionId;
