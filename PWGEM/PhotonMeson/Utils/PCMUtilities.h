@@ -22,7 +22,7 @@
 #include "Framework/AnalysisTask.h"
 
 //_______________________________________________________________________
-bool checkAP(const float alpha, const float qt, const float alpha_max=0.95, const float qt_max=0.05)
+bool checkAP(const float alpha, const float qt, const float alpha_max = 0.95, const float qt_max = 0.05)
 {
   float ellipse = pow(alpha / alpha_max, 2) + pow(qt / qt_max, 2);
   if (ellipse < 1.0) {
