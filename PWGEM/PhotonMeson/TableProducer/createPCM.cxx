@@ -238,7 +238,7 @@ struct createPCM {
       return false;
     }
 
-    if(recalculatedVtxR < 16.f && (!pos.hasITS() || !ele.hasITS())){
+    if (recalculatedVtxR < 16.f && (!pos.hasITS() || !ele.hasITS())) {
       return false;
     }
 
