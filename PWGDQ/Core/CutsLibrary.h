@@ -15,6 +15,7 @@
 #ifndef PWGDQ_CORE_CUTSLIBRARY_H_
 #define PWGDQ_CORE_CUTSLIBRARY_H_
 
+#include <set>
 #include <string>
 #include <vector>
 #include "PWGDQ/Core/AnalysisCut.h"

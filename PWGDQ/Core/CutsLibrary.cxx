@@ -2076,6 +2076,21 @@ AnalysisCut* o2::aod::dqcuts::GetAnalysisCut(const char* cutName)
     return cut;
   }
 
+  if (!nameStr.compare("ITSibFirst")) {
+    cut->AddCut(VarManager::kIsITSibFirst, 0.5, 1.5);
+    return cut;
+  }
+
+  if (!nameStr.compare("ITSibAny")) {
+    cut->AddCut(VarManager::kIsITSibAny, 0.5, 1.5);
+    return cut;
+  }
+
+  if (!nameStr.compare("ITSibAll")) {
+    cut->AddCut(VarManager::kIsITSibAll, 0.5, 1.5);
+    return cut;
+  }
+
   if (!nameStr.compare("electronStandardQualityForO2MCdebug")) {
     cut->AddCut(VarManager::kIsSPDany, 0.5, 1.5);
     cut->AddCut(VarManager::kTPCchi2, 0.0, 4.0);
