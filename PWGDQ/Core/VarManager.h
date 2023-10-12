@@ -1019,8 +1019,8 @@ void VarManager::FillTrack(T const& track, float* values)
     }
     if (fgUsedVars[kIsITSibAny]) {
       values[kIsITSibAny] = (track.itsClusterMap() & (1 << uint8_t(0))) > 0 || (track.itsClusterMap() & (1 << uint8_t(1))) > 0 || (track.itsClusterMap() & (1 << uint8_t(2))) > 0;
-    }                                                                                                                                                                            
-    if (fgUsedVars[kIsITSibAll]) {                                                                                                                                               
+    }
+    if (fgUsedVars[kIsITSibAll]) {
       values[kIsITSibAll] = (track.itsClusterMap() & (1 << uint8_t(0))) > 0 && (track.itsClusterMap() & (1 << uint8_t(1))) > 0 && (track.itsClusterMap() & (1 << uint8_t(2))) > 0;
     }
 
