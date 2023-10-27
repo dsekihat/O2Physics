@@ -15,7 +15,6 @@
 //
 // \author Daiki Sekihata <daiki.sekihata@cern.ch>, Tokyo
 
-
 #include <cmath>
 #include <array>
 #include <cstdlib>
