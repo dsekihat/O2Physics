@@ -35,7 +35,7 @@ V0PhotonCut* o2::aod::pcmcuts::GetCut(const char* cutName)
     cut->SetRxyRange(1, 90);
     return cut;
   }
-  if (!nameStr.compare("qc_lc")) { //qc for late conversion
+  if (!nameStr.compare("qc_lc")) { // qc for late conversion
     // for track
     cut->SetTrackPtRange(0.02f, 1e10f);
     // cut->SetTrackEtaRange(-0.9, +0.9);
