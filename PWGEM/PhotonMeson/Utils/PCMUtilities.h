@@ -175,14 +175,14 @@ float getPhivPair(float pxpos, float pypos, float pzpos, float pxneg, float pyne
   // The angle between them should be small if the pair is conversion. This function then returns values close to pi!
   auto clipToPM1 = [](float x) { return x < -1.f ? -1.f : (x > 1.f ? 1.f : x); };
 
-  //if(!std::isfinite(std::acos(wx * ax + wy * ay))){
-  //  LOGF(info, "pos_x_ele[0] = %f, pos_x_ele[1] = %f, pos_x_ele[2] = %f", pos_x_ele[0], pos_x_ele[1], pos_x_ele[2]);
-  //  LOGF(info, "ux = %f, uy = %f, uz = %f", ux, uy, uz);
-  //  LOGF(info, "ax = %f, ay = %f", ax, ay);
-  //  LOGF(info, "wx = %f, wy = %f", wx, wy);
-  //  LOGF(info, "wx * ax + wy * ay = %f", wx * ax + wy * ay);
-  //  LOGF(info, "std::acos(wx * ax + wy * ay) = %f", std::acos(clipToPM1(wx * ax + wy * ay)));
-  //}
+  // if(!std::isfinite(std::acos(wx * ax + wy * ay))){
+  //   LOGF(info, "pos_x_ele[0] = %f, pos_x_ele[1] = %f, pos_x_ele[2] = %f", pos_x_ele[0], pos_x_ele[1], pos_x_ele[2]);
+  //   LOGF(info, "ux = %f, uy = %f, uz = %f", ux, uy, uz);
+  //   LOGF(info, "ax = %f, ay = %f", ax, ay);
+  //   LOGF(info, "wx = %f, wy = %f", wx, wy);
+  //   LOGF(info, "wx * ax + wy * ay = %f", wx * ax + wy * ay);
+  //   LOGF(info, "std::acos(wx * ax + wy * ay) = %f", std::acos(clipToPM1(wx * ax + wy * ay)));
+  // }
 
   return std::acos(clipToPM1(wx * ax + wy * ay)); // phiv in [0,pi] //cosPhiV = wx * ax + wy * ay;
 }
