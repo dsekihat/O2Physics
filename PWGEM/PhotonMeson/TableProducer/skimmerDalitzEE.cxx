@@ -183,7 +183,7 @@ struct skimmerDalitzEE {
     return npair;
   }
 
-  Partition<MyTracks> posTracks = o2::aod::track::pt > minpt&& nabs(o2::aod::track::eta)<maxeta && o2::aod::emprimaryelectron::sign> 0 && minTPCNsigmaEl < o2::aod::pidtpc::tpcNSigmaEl&& o2::aod::pidtpc::tpcNSigmaEl < maxTPCNsigmaEl;
+  Partition<MyTracks> posTracks = o2::aod::track::pt > minpt&& nabs(o2::aod::track::eta) < maxeta&& o2::aod::emprimaryelectron::sign > 0 && minTPCNsigmaEl < o2::aod::pidtpc::tpcNSigmaEl&& o2::aod::pidtpc::tpcNSigmaEl < maxTPCNsigmaEl;
   Partition<MyTracks> negTracks = o2::aod::track::pt > minpt&& nabs(o2::aod::track::eta) < maxeta&& o2::aod::emprimaryelectron::sign < 0 && minTPCNsigmaEl < o2::aod::pidtpc::tpcNSigmaEl&& o2::aod::pidtpc::tpcNSigmaEl < maxTPCNsigmaEl;
   void processAnalysis(MyCollisions const& collisions, MyTracks const& tracks)
   {
@@ -205,7 +205,7 @@ struct skimmerDalitzEE {
   }
   PROCESS_SWITCH(skimmerDalitzEE, processAnalysis, "Process dalitz ee for analysis", true);
 
-  Partition<aod::EMPrimaryElectrons> posTracks_cefp = o2::aod::track::pt > minpt&& nabs(o2::aod::track::eta)<maxeta && o2::aod::emprimaryelectron::sign> 0 && minTPCNsigmaEl < o2::aod::pidtpc::tpcNSigmaEl&& o2::aod::pidtpc::tpcNSigmaEl < maxTPCNsigmaEl;
+  Partition<aod::EMPrimaryElectrons> posTracks_cefp = o2::aod::track::pt > minpt&& nabs(o2::aod::track::eta) < maxeta&& o2::aod::emprimaryelectron::sign > 0 && minTPCNsigmaEl < o2::aod::pidtpc::tpcNSigmaEl&& o2::aod::pidtpc::tpcNSigmaEl < maxTPCNsigmaEl;
   Partition<aod::EMPrimaryElectrons> negTracks_cefp = o2::aod::track::pt > minpt&& nabs(o2::aod::track::eta) < maxeta&& o2::aod::emprimaryelectron::sign < 0 && minTPCNsigmaEl < o2::aod::pidtpc::tpcNSigmaEl&& o2::aod::pidtpc::tpcNSigmaEl < maxTPCNsigmaEl;
   void processCEFP(soa::Join<aod::Collisions, aod::EMReducedEventsBz> const& collisions, aod::EMPrimaryElectrons const& tracks)
   {
