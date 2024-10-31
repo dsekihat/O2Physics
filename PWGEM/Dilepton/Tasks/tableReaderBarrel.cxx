@@ -11,6 +11,11 @@
 //
 // Contact: iarsene@cern.ch, i.c.arsene@fys.uio.no
 //
+
+
+#include <map>
+#include <string>
+#include <memory>
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -137,8 +142,8 @@ struct AnalysisEventSelection {
     Configurable<bool> cfgRequireGoodZvtxFT0vsPV{"cfgRequireGoodZvtxFT0vsPV", false, "require good Zvtx between FT0 vs. PV in event cut"};
     Configurable<float> cfgCentFT0CMin{"cfgCentralityMin", -1000000000.f, "min. centrality"};
     Configurable<float> cfgCentFT0CMax{"cfgCentralityMax", 1000000000.f, "max. centrality"};
-    Configurable<int> cfgOccupancyMin{"cfgOccupancyMin", -1000000000, "min. occupancy"};
-    Configurable<int> cfgOccupancyMax{"cfgOccupancyMax", 1000000000, "max. occupancy"};
+    Configurable<int> cfgTrackOccupancyMin{"cfgTrackOccupancyMin", -1000000000, "min. occupancy"};
+    Configurable<int> cfgTrackOccupancyMax{"cfgTrackOccupancyMax", 1000000000, "max. occupancy"};
   } eventcuts;
 
   HistogramManager* fHistMan = nullptr;
@@ -233,7 +238,7 @@ struct AnalysisEventSelection {
     if (eventcuts.cfgRequireGoodZvtxFT0vsPV)
       cut->AddCut(VarManager::kIsGoodZvtxFT0vsPV, 0.5, 1.5);
     cut->AddCut(VarManager::kCentFT0C, eventcuts.cfgCentFT0CMin, eventcuts.cfgCentFT0CMax);
-    cut->AddCut(VarManager::kTrackOccupancyInTimeRange, eventcuts.cfgOccupancyMin, eventcuts.cfgOccupancyMax);
+    cut->AddCut(VarManager::kTrackOccupancyInTimeRange, eventcuts.cfgTrackOccupancyMin, eventcuts.cfgTrackOccupancyMax);
     return cut;
   }
 
@@ -882,9 +887,9 @@ struct AnalysisEventMixing {
               }
             }
           } // end if (filter bits)
-        }   // end for (cuts)
-      }     // end for (track2)
-    }       // end for (track1)
+        } // end for (cuts)
+      } // end for (track2)
+    } // end for (track1)
   }
 
   // barrel-barrel and muon-muon event mixing
@@ -1095,9 +1100,9 @@ struct AnalysisSameEventPairing {
           histNames += Form("%s;%s;%s;", names[0].Data(), names[1].Data(), names[2].Data());
 
           fTrackHistNames.push_back(names);
-        }   // end loop (pair cuts)
-      }     // end loop (track cuts)
-    }       // end if (track cuts)
+        } // end loop (pair cuts)
+      } // end loop (track cuts)
+    } // end if (track cuts)
 
     VarManager::SetCollisionSystem((TString)fCollisionSystem, fCenterMassEnergy); // set collision system and center of mass energy
 
@@ -1168,12 +1173,12 @@ struct AnalysisSameEventPairing {
                 fHistMan->FillHistClass(histNames[iCut][2].Data(), VarManager::fgValues);
               }
             }
-          }      // end loop (pair cuts)
+          } // end loop (pair cuts)
         } else { // end if (filter bits)
           iCut = iCut + 1 + fPairCuts.size();
         }
       } // end loop (cuts)
-    }   // end loop over pairs
+    } // end loop over pairs
   }
 
   void processDecayToEESkimmed(soa::Filtered<MyEventsSelected>::iterator const& event, soa::Filtered<MyBarrelTracksSelected> const& tracks)
