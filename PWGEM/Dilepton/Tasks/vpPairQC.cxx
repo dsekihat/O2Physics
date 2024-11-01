@@ -14,7 +14,6 @@
 // This code runs loop over ULS ee pars for virtual photon QC.
 //    Please write to: daiki.sekihata@cern.ch
 
-
 #include <map>
 #include <string>
 #include <vector>

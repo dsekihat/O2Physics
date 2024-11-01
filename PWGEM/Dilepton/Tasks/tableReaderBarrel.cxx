@@ -12,7 +12,6 @@
 // Contact: iarsene@cern.ch, i.c.arsene@fys.uio.no
 //
 
-
 #include <map>
 #include <string>
 #include <memory>
