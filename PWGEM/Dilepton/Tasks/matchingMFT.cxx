@@ -146,7 +146,7 @@ struct matchingMFT {
     fRegistry.add("MFTMCHMID/primary/correct/hPt", "pT;p_{T} (GeV/c)", kTH1F, {{100, 0.0f, 10}}, false);
     fRegistry.add("MFTMCHMID/primary/correct/hEtaPhi", "#eta vs. #varphi;#varphi (rad.);#eta", kTH2F, {{180, 0, 2 * M_PI}, {100, -6.f, -1.f}}, false);
     fRegistry.add("MFTMCHMID/primary/correct/hEtaPhi_MatchedMCHMID", "#eta vs. #varphi;#varphi (rad.);#eta", kTH2F, {{180, 0, 2 * M_PI}, {100, -6.f, -1.f}}, false);
-    fRegistry.add("MFTMCHMID/primary/correct/hDeltaEtaDeltaPhi", "#Delta#eta vs. #Delta#varphi;#Delta#varphi = #varphi_{sa} - #varphi_{gl} (rad.);#Delta#eta = #eta_{sa} - #eta_{gl}", kTH2F, {{90, -M_PI/2.f, M_PI/2.f}, {200, -1.f, 1.f}}, false);
+    fRegistry.add("MFTMCHMID/primary/correct/hDeltaEtaDeltaPhi", "#Delta#eta vs. #Delta#varphi;#Delta#varphi = #varphi_{sa} - #varphi_{gl} (rad.);#Delta#eta = #eta_{sa} - #eta_{gl}", kTH2F, {{90, -M_PI / 2.f, M_PI / 2.f}, {200, -1.f, 1.f}}, false);
     fRegistry.add("MFTMCHMID/primary/correct/hDiffCollId", "difference in collision index;collisionId_{TTCA} - collisionId_{MP}", kTH1F, {{41, -20.5, +20.5}}, false);
     fRegistry.add("MFTMCHMID/primary/correct/hSign", "sign;sign", kTH1F, {{3, -1.5, +1.5}}, false);
     fRegistry.add("MFTMCHMID/primary/correct/hNclusters", "Nclusters;Nclusters", kTH1F, {{21, -0.5f, 20.5}}, false);
