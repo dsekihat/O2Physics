@@ -1090,8 +1090,8 @@ struct prefilterPrimaryElectron {
           fRegistry.fill(HIST("Pair/after/uls/hMvsPhiV"), phiv, v12.M());
           fRegistry.fill(HIST("Pair/after/uls/hMvsPt"), v12.M(), v12.Pt());
           {
-      } // end of ULS pairing
-    } // end of collision loop
+          } // end of ULS pairing
+        } // end of collision loop
 
     pfb_map.clear();
   }
