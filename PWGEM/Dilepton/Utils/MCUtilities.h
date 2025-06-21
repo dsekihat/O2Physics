@@ -18,6 +18,8 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include "Framework/Logger.h"
+#include "Framework/AnalysisDataModel.h"
 
 //_______________________________________________________________________
 namespace o2::aod::pwgem::dilepton::utils::mcutil

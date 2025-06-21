@@ -13,11 +13,12 @@
 // Class for dielectron Cut
 //
 
-#include <utility>
-#include <set>
+#include "PWGEM/Dilepton/Core/DielectronCut.h"
 
 #include "Framework/Logger.h"
-#include "PWGEM/Dilepton/Core/DielectronCut.h"
+
+#include <set>
+#include <utility>
 
 ClassImp(DielectronCut);
 
@@ -340,4 +341,10 @@ void DielectronCut::RequireITSib1st(bool flag)
 {
   mRequireITSib1st = flag;
   LOG(info) << "Dielectron Cut, require ITS ib 1st: " << mRequireITSib1st;
+}
+void DielectronCut::IncludeITSsa(bool flag, float max)
+{
+  mIncludeITSsa = flag;
+  mMaxPtITSsa = max;
+  LOG(info) << "Dielectron Cut, include ITSsa tracks: " << mIncludeITSsa << ", mMaxPtITSsa = " << mMaxPtITSsa;
 }

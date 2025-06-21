@@ -18,6 +18,7 @@
 #include <vector>
 #include <algorithm>
 #include "Framework/AnalysisTask.h"
+#include "Framework/HistogramRegistry.h"
 
 //_______________________________________________________________________
 namespace o2::aod::pwgem::photonmeson::utils::mcutil

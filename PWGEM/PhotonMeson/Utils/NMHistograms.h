@@ -17,6 +17,7 @@
 
 #include <vector>
 #include "TF1.h"
+#include "Framework/HistogramRegistry.h"
 #include "PWGEM/PhotonMeson/Utils/PairUtilities.h"
 #include "PWGEM/PhotonMeson/Utils/MCUtilities.h"
 

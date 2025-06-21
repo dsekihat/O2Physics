@@ -16,21 +16,22 @@
 #ifndef PWGEM_DILEPTON_CORE_DIELECTRONCUT_H_
 #define PWGEM_DILEPTON_CORE_DIELECTRONCUT_H_
 
+#include "PWGEM/Dilepton/Utils/EMTrackUtilities.h"
+#include "PWGEM/Dilepton/Utils/MlResponseDielectronSingleTrack.h"
+#include "PWGEM/Dilepton/Utils/PairUtilities.h"
+
+#include "CommonConstants/PhysicsConstants.h"
+#include "Framework/DataTypes.h"
+#include "Framework/Logger.h"
+
+#include "Math/Vector4D.h"
+#include "TNamed.h"
+
 #include <algorithm>
 #include <set>
-#include <vector>
-#include <utility>
 #include <string>
-#include "TNamed.h"
-#include "Math/Vector4D.h"
-
-#include "PWGEM/Dilepton/Utils/MlResponseDielectronSingleTrack.h"
-
-#include "Framework/Logger.h"
-#include "Framework/DataTypes.h"
-#include "CommonConstants/PhysicsConstants.h"
-#include "PWGEM/Dilepton/Utils/PairUtilities.h"
-#include "PWGEM/Dilepton/Utils/EMTrackUtilities.h"
+#include <utility>
+#include <vector>
 
 using namespace o2::aod::pwgem::dilepton::utils::emtrackutil;
 using namespace o2::aod::pwgem::dilepton::utils::pairutil;
@@ -149,7 +150,7 @@ class DielectronCut : public TNamed
   template <bool dont_require_pteta = false, bool isML = false, typename TTrack, typename TCollision = int>
   bool IsSelectedTrack(TTrack const& track, TCollision const& collision = 0) const
   {
-    if (!track.hasITS() || !track.hasTPC()) { // track has to be ITS-TPC matched track
+    if (!track.hasITS()) {
       return false;
     }
 
@@ -200,24 +201,34 @@ class DielectronCut : public TNamed
       }
     }
 
+    if (!mIncludeITSsa && (!track.hasITS() || !track.hasTPC())) { // track has to be ITS-TPC matched track
+      return false;
+    }
+
+    if ((track.hasITS() && !track.hasTPC() && !track.hasTRD() && !track.hasTOF()) && track.pt() > mMaxPtITSsa) { // ITSsa
+      return false;
+    }
+
     // TPC cuts
-    if (!IsSelectedTrack(track, DielectronCuts::kTPCNCls)) {
-      return false;
-    }
-    if (!IsSelectedTrack(track, DielectronCuts::kTPCCrossedRows)) {
-      return false;
-    }
-    if (!IsSelectedTrack(track, DielectronCuts::kTPCCrossedRowsOverNCls)) {
-      return false;
-    }
-    if (!IsSelectedTrack(track, DielectronCuts::kTPCFracSharedClusters)) {
-      return false;
-    }
-    if (!IsSelectedTrack(track, DielectronCuts::kRelDiffPin)) {
-      return false;
-    }
-    if (!IsSelectedTrack(track, DielectronCuts::kTPCChi2NDF)) {
-      return false;
+    if (track.hasTPC()) {
+      if (!IsSelectedTrack(track, DielectronCuts::kTPCNCls)) {
+        return false;
+      }
+      if (!IsSelectedTrack(track, DielectronCuts::kTPCCrossedRows)) {
+        return false;
+      }
+      if (!IsSelectedTrack(track, DielectronCuts::kTPCCrossedRowsOverNCls)) {
+        return false;
+      }
+      if (!IsSelectedTrack(track, DielectronCuts::kTPCFracSharedClusters)) {
+        return false;
+      }
+      if (!IsSelectedTrack(track, DielectronCuts::kRelDiffPin)) {
+        return false;
+      }
+      if (!IsSelectedTrack(track, DielectronCuts::kTPCChi2NDF)) {
+        return false;
+      }
     }
 
     if (mApplyPF && !IsSelectedTrack(track, DielectronCuts::kPrefilter)) {
@@ -470,6 +481,7 @@ class DielectronCut : public TNamed
   void SetTrackMaxDcaXYPtDep(std::function<float(float)> ptDepCut);
   void ApplyPrefilter(bool flag);
   void ApplyPhiV(bool flag);
+  void IncludeITSsa(bool flag, float maxpt);
 
   void SetPIDMlResponse(o2::analysis::MlResponseDielectronSingleTrack<float>* mlResponse)
   {
@@ -525,6 +537,8 @@ class DielectronCut : public TNamed
   bool mApplyPF{false};
   float mMinMeanClusterSizeITS{-1e10f}, mMaxMeanClusterSizeITS{1e10f}; // max <its cluster size> x cos(Lmabda)
   float mMinP_ITSClusterSize{0.0}, mMaxP_ITSClusterSize{0.0};
+  bool mIncludeITSsa{false};
+  float mMaxPtITSsa{0.15};
 
   // pid cuts
   int mPIDScheme{-1};
