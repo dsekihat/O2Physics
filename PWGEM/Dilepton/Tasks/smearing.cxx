@@ -13,20 +13,21 @@
 // Analysis task to produce smeared pt, eta, phi for electrons/muons in dilepton analysis
 //    Please write to: daiki.sekihata@cern.ch
 
-#include <array>
-#include <string>
-#include <chrono>
+#include "PWGEM/Dilepton/DataModel/dileptonTables.h"
+#include "PWGEM/Dilepton/Utils/MomentumSmearer.h"
 
 #include "CCDB/BasicCCDBManager.h"
-#include "Framework/runDataProcessing.h"
-#include "Framework/AnalysisTask.h"
-#include "Framework/AnalysisDataModel.h"
-#include "Framework/ASoAHelpers.h"
 #include "Framework/ASoA.h"
+#include "Framework/ASoAHelpers.h"
+#include "Framework/AnalysisDataModel.h"
+#include "Framework/AnalysisTask.h"
 #include "Framework/DataTypes.h"
 #include "Framework/HistogramRegistry.h"
-#include "PWGEM/Dilepton/Utils/MomentumSmearer.h"
-#include "PWGEM/Dilepton/DataModel/dileptonTables.h"
+#include "Framework/runDataProcessing.h"
+
+#include <array>
+#include <chrono>
+#include <string>
 
 using namespace o2;
 using namespace o2::framework;
@@ -299,7 +300,7 @@ struct ApplySmearing {
 };
 
 struct CheckSmearing {
-  using EMMCParticlesWithSmearing = soa::Join<aod::EMMCParticles, aod::SmearedElectrons, aod::SmearedMuons>; 
+  using EMMCParticlesWithSmearing = soa::Join<aod::EMMCParticles, aod::SmearedElectrons, aod::SmearedMuons>;
   using MyCocktailTracks = soa::Join<aod::McParticles, aod::SmearedElectrons, aod::SmearedMuons>;
 
   // Run for electrons or muons
@@ -341,7 +342,6 @@ struct CheckSmearing {
 
     registry.addClone("Electron/", "GlobalMuon/");
     registry.addClone("Electron/", "StandaloneMuon/");
-
   }
 
   template <o2::aod::pwgem::dilepton::smearing::EMAnaType type, typename TTracksMC, typename TMCCollisions>
@@ -361,7 +361,7 @@ struct CheckSmearing {
 
       if (std::abs(mctrack.pdgCode()) == 11) { // for electrons
         float deltaptoverpt = -1000.f;
-        if (mctrack.pt() > 0.f){
+        if (mctrack.pt() > 0.f) {
           deltaptoverpt = (mctrack.pt() - mctrack.ptSmeared()) / mctrack.pt();
         }
         float deltaeta = mctrack.eta() - mctrack.etaSmeared();
@@ -379,7 +379,7 @@ struct CheckSmearing {
       } else if (std::abs(mctrack.pdgCode()) == 13) { // for muons
         float deltaptoverpt = -1000.f;
         // for standalone muons
-        if (mctrack.pt() > 0.f){
+        if (mctrack.pt() > 0.f) {
           deltaptoverpt = (mctrack.pt() - mctrack.ptSmeared_sa_muon()) / mctrack.pt();
         }
         float deltaeta = mctrack.eta() - mctrack.etaSmeared_sa_muon();
@@ -396,7 +396,7 @@ struct CheckSmearing {
         registry.fill(HIST("StandaloneMuon/hCorrelation_Phi"), mctrack.phi(), mctrack.phiSmeared_sa_muon());
 
         // for global muons
-        if (mctrack.pt() > 0.f){
+        if (mctrack.pt() > 0.f) {
           deltaptoverpt = (mctrack.pt() - mctrack.ptSmeared_gl_muon()) / mctrack.pt();
         }
         deltaeta = mctrack.eta() - mctrack.etaSmeared_gl_muon();
