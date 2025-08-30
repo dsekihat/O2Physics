@@ -29,8 +29,8 @@
 #include "Framework/runDataProcessing.h"
 #include "ReconstructionDataFormats/Track.h"
 
-#include <string>
 #include <algorithm>
+#include <string>
 #include <vector>
 
 using namespace o2;
