@@ -202,6 +202,7 @@ std::vector<int> Zorro::initCCDB(o2::ccdb::BasicCCDBManager* ccdb, int runNumber
     mTOIidx.push_back(bin);
   }
   mTOIcounts.resize(mTOIs.size(), 0);
+  mATcounts.resize(mTOIs.size(), 0);
   LOGF(info, "Zorro initialized for run %d, triggers of interest:", runNumber);
   for (size_t i{0}; i < mTOIs.size(); ++i) {
     LOGF(info, ">>> %s : %i", mTOIs[i].data(), mTOIidx[i]);
@@ -266,6 +267,7 @@ bool Zorro::isSelected(uint64_t bcGlobalId, uint64_t tolerance, TH2* ToiHisto)
         int binY = ToiHisto->GetYaxis()->FindBin(Form("%s AnalysedTriggers", mTOIs[i].data()));
         ToiHisto->SetBinContent(binX, binY, mAnalysedTriggers->GetBinContent(mAnalysedTriggers->GetXaxis()->FindBin(mTOIs[i].data())));
       }
+      mATcounts[i] += (mAnalysedTriggers->GetBinContent(mAnalysedTriggers->GetXaxis()->FindBin(mTOIs[i].data())) > mATcounts[i]);
       mTOIcounts[i] += (lastSelectedIdx != mLastSelectedIdx); /// Avoid double counting
       if (mAnalysedTriggersOfInterest && lastSelectedIdx != mLastSelectedIdx) {
         mAnalysedTriggersOfInterest->Fill(i);
