@@ -127,8 +127,8 @@ struct DileptonMC {
   Configurable<int> cfg_nbin_aco{"cfg_nbin_aco", 1, "number of bins for acoplanarity"};          // 10
   Configurable<int> cfg_nbin_asym_pt{"cfg_nbin_asym_pt", 1, "number of bins for pt asymmetry"};  // 10
   Configurable<int> cfg_nbin_dphi_e_ee{"cfg_nbin_dphi_e_ee", 1, "number of bins for dphi_ee_e"}; // 18
-  ConfigurableAxis ConfPolarizationPhiBins{"ConfPolarizationPhiBins", {1, 0.f, 2 * M_PI}, "phi bins for polarization analysis"};
   ConfigurableAxis ConfPolarizationCosThetaBins{"ConfPolarizationCosThetaBins", {1, -1.f, 1.f}, "cos(theta) bins for polarization analysis"};
+  ConfigurableAxis ConfPolarizationPhiBins{"ConfPolarizationPhiBins", {1, -M_PI, M_PI}, "phi bins for polarization analysis"};
   Configurable<int> cfgPolarizationFrame{"cfgPolarizationFrame", 0, "frame of polarization. 0:CS, 1:HX, else:FATAL"};
   ConfigurableAxis ConfPolarizationQuadMomBins{"ConfPolarizationQuadMomBins", {1, -0.5, 1}, "quadrupole moment bins for polarization analysis"}; // quardrupole moment <(3 x cos^2(theta) -1)/2>
 
@@ -806,18 +806,18 @@ struct DileptonMC {
   int FindLF(TTrack const& posmc, TTrack const& negmc, TMCParticles const& mcparticles)
   {
     int arr[] = {
-      FindCommonMotherFrom2Prongs(posmc, negmc, -pdg_lepton, pdg_lepton, 22, mcparticles),
-      FindCommonMotherFrom2Prongs(posmc, negmc, -pdg_lepton, pdg_lepton, 111, mcparticles),
-      FindCommonMotherFrom2Prongs(posmc, negmc, -pdg_lepton, pdg_lepton, 221, mcparticles),
-      FindCommonMotherFrom2Prongs(posmc, negmc, -pdg_lepton, pdg_lepton, 331, mcparticles),
-      FindCommonMotherFrom2Prongs(posmc, negmc, -pdg_lepton, pdg_lepton, 113, mcparticles),
-      FindCommonMotherFrom2Prongs(posmc, negmc, -pdg_lepton, pdg_lepton, 223, mcparticles),
-      FindCommonMotherFrom2Prongs(posmc, negmc, -pdg_lepton, pdg_lepton, 333, mcparticles),
-      FindCommonMotherFrom2Prongs(posmc, negmc, -pdg_lepton, pdg_lepton, 443, mcparticles),
-      FindCommonMotherFrom2Prongs(posmc, negmc, -pdg_lepton, pdg_lepton, 100443, mcparticles)
-      // FindCommonMotherFrom2Prongs(posmc, negmc, -pdg_lepton, pdg_lepton, 553, mcparticles),
-      // FindCommonMotherFrom2Prongs(posmc, negmc, -pdg_lepton, pdg_lepton, 100553, mcparticles),
-      // FindCommonMotherFrom2Prongs(posmc, negmc, -pdg_lepton, pdg_lepton, 200553, mcparticles)
+      FindCommonMotherFrom2Prongs(posmc, negmc, pdg_lepton, pdg_lepton, 22, mcparticles),
+      FindCommonMotherFrom2Prongs(posmc, negmc, pdg_lepton, pdg_lepton, 111, mcparticles),
+      FindCommonMotherFrom2Prongs(posmc, negmc, pdg_lepton, pdg_lepton, 221, mcparticles),
+      FindCommonMotherFrom2Prongs(posmc, negmc, pdg_lepton, pdg_lepton, 331, mcparticles),
+      FindCommonMotherFrom2Prongs(posmc, negmc, pdg_lepton, pdg_lepton, 113, mcparticles),
+      FindCommonMotherFrom2Prongs(posmc, negmc, pdg_lepton, pdg_lepton, 223, mcparticles),
+      FindCommonMotherFrom2Prongs(posmc, negmc, pdg_lepton, pdg_lepton, 333, mcparticles),
+      FindCommonMotherFrom2Prongs(posmc, negmc, pdg_lepton, pdg_lepton, 443, mcparticles),
+      FindCommonMotherFrom2Prongs(posmc, negmc, pdg_lepton, pdg_lepton, 100443, mcparticles)
+      // FindCommonMotherFrom2Prongs(posmc, negmc, pdg_lepton, pdg_lepton, 553, mcparticles),
+      // FindCommonMotherFrom2Prongs(posmc, negmc, pdg_lepton, pdg_lepton, 100553, mcparticles),
+      // FindCommonMotherFrom2Prongs(posmc, negmc, pdg_lepton, pdg_lepton, 200553, mcparticles)
     };
     int size = sizeof(arr) / sizeof(*arr);
     int max = *std::max_element(arr, arr + size);
@@ -1490,7 +1490,7 @@ struct DileptonMC {
     } else if (cfgPolarizationFrame == 1) {
       o2::aod::pwgem::dilepton::utils::pairutil::getAngleHX(arrP1, arrP2, beamE1, beamE2, beamP1, beamP2, t1.sign(), cos_thetaPol, phiPol);
     }
-    o2::math_utils::bringTo02Pi(phiPol);
+    o2::math_utils::bringToPMPi(phiPol);
     float quadmom = (3.f * std::pow(cos_thetaPol, 2) - 1.f) / 2.f;
 
     if ((FindCommonMotherFrom2ProngsWithoutPDG(t1mc, t2mc) > 0 || IsHF(t1mc, t2mc, mcparticles) > 0) && is_pair_from_same_mcevent) { // for bkg study
@@ -1797,7 +1797,7 @@ struct DileptonMC {
     } else if (cfgPolarizationFrame == 1) {
       o2::aod::pwgem::dilepton::utils::pairutil::getAngleHX(arrP1, arrP2, beamE1, beamE2, beamP1, beamP2, -t1.pdgCode() / pdg_lepton, cos_thetaPol, phiPol);
     }
-    o2::math_utils::bringTo02Pi(phiPol);
+    o2::math_utils::bringToPMPi(phiPol);
     float quadmom = (3.f * std::pow(cos_thetaPol, 2) - 1.f) / 2.f;
 
     // bool isInAcc = isInAcceptance<isSmeared>(t1) && isInAcceptance<isSmeared>(t2);
