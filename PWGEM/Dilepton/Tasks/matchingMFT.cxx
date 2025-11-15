@@ -516,7 +516,6 @@ struct matchingMFT {
         dcaXYinSigma = std::sqrt(std::fabs((dcaX * dcaX * cYYatDCA + dcaY * dcaY * cXXatDCA - 2. * dcaX * dcaY * cXYatDCA) / det / 2.)); // dca xy in sigma
       }
       sigma_dcaXY = dcaXY / dcaXYinSigma;
-
     }
 
     float ptMatchedMCHMID = propmuonAtPV_Matched.getPt();
