@@ -95,7 +95,7 @@ struct skimmerPrimaryMuon {
   Configurable<float> cfgSlope_dr_chi2MatchMFTMCH{"cfgSlope_dr_chi2MatchMFTMCH", -0.15 / 30, "slope of chiMatchMCHMFT vs. dR"};
   Configurable<float> cfgIntercept_dr_chi2MatchMFTMCH{"cfgIntercept_dr_chi2MatchMFTMCH", 1e+10f, "intercept of chiMatchMCHMFT vs. dR"};
   Configurable<float> cfgPeakPosition_chi2MatchMFTMCH{"cfgPeakPosition_chi2MatchMFTMCH", 0.f, "peak position of chiMatchMCHMFT distribution"}; // 2
-  Configurable<float> cfgPeakPosition_dr{"cfgPeakPosition_dr", 0.f, "peak position of dr distribution"}; // 0.01
+  Configurable<float> cfgPeakPosition_dr{"cfgPeakPosition_dr", 0.f, "peak position of dr distribution"};                                       // 0.01
 
   // for z shift for propagation
   Configurable<bool> cfgApplyZShiftFromCCDB{"cfgApplyZShiftFromCCDB", false, "flag to apply z shift"};
@@ -606,7 +606,6 @@ struct skimmerPrimaryMuon {
         //   min_distance_2d = distance_2d;
         //   tupleIds_at_min_distance_2d = tupleId;
         // }
-
       }
     }
     vec_min_chi2MatchMCHMFT.emplace_back(tupleIds_at_min_chi2mftmch);

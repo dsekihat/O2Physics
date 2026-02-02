@@ -154,4 +154,3 @@ void DimuonCut::SetSlopeAndInterceptDRvsChi2MCHMFT(float slope, float intercept)
   LOG(info) << "Dimuon Cut, set slope between dr and chi2MCHMFT: " << mSlope_dr_chi2MatchMFTMCH;
   LOG(info) << "Dimuon Cut, set intercept between dr and chi2MCHMFT: " << mIntercept_dr_chi2MatchMFTMCH;
 }
-
