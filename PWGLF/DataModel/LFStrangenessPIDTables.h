@@ -180,7 +180,7 @@ DECLARE_SOA_TABLE_VERSIONED(DauTrackTOFPIDs_002, "AOD", "DAUTRACKTOFPID", 2, // 
                             dautrack::TOFExpTimeEl<dautrack::Length, dautrack::TOFExpMom>,
                             dautrack::TOFExpTimePi<dautrack::Length, dautrack::TOFExpMom>,
                             dautrack::TOFExpTimeKa<dautrack::Length, dautrack::TOFExpMom>,
-                            dautrack::TOFExpTimePr<dautrack::Length, dautrack::TOFExpMom>);                            
+                            dautrack::TOFExpTimePr<dautrack::Length, dautrack::TOFExpMom>);
 
 using DauTrackTOFPIDs = DauTrackTOFPIDs_002; // second gen: with collision Id, with TOFExpMom
 
