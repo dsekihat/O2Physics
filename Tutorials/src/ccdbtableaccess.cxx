@@ -13,13 +13,13 @@
 /// \author Daiki Sekihata
 /// \since 2026-03-01
 
-#include "Framework/runDataProcessing.h"
-#include "Framework/AnalysisTask.h"
 #include "CCDB/BasicCCDBManager.h"
+#include "CommonDataFormat/InteractionRecord.h"
 #include "DataFormatsCalibration/MeanVertexObject.h"
 #include "DataFormatsParameters/GRPMagField.h"
 #include "DataFormatsParameters/GRPObject.h"
-#include "CommonDataFormat/InteractionRecord.h"
+#include "Framework/AnalysisTask.h"
+#include "Framework/runDataProcessing.h"
 
 #include <chrono>
 
@@ -31,7 +31,7 @@ namespace o2::aod
 {
 namespace testccdb
 {
-DECLARE_SOA_CCDB_COLUMN(GRPObject, grpObject, o2::parameters::GRPObject, "GLO/GRP/GRP"); //!
+DECLARE_SOA_CCDB_COLUMN(GRPObject, grpObject, o2::parameters::GRPObject, "GLO/GRP/GRP");                  //!
 DECLARE_SOA_CCDB_COLUMN(GRPMagField, grpMagField, o2::parameters::GRPMagField, "GLO/Config/GRPMagField"); //!
 } // namespace testccdb
 
@@ -48,7 +48,7 @@ struct TestCCDBTable {
 
   void process(MyBCs const& bcs)
   {
-    for (const auto& bc: bcs) {
+    for (const auto& bc : bcs) {
       float bz = bc.grpObject().getNominalL3Field();
       float l3current = bc.grpMagField().getL3Current();
       LOGF(info, "bc.timestamp() = %lld, bz = %f kG, %f A", bc.timestamp(), bz, l3current);
