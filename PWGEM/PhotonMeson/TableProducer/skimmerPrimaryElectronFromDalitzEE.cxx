@@ -636,7 +636,6 @@ struct skimmerPrimaryElectronFromDalitzEE {
     stored_trackIds.shrink_to_fit();
   }
   PROCESS_SWITCH(skimmerPrimaryElectronFromDalitzEE, processMC, "process reconstructed and MC info ", false);
-
 };
 
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)

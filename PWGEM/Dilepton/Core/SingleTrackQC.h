@@ -970,7 +970,6 @@ struct SingleTrackQC {
         fRegistry.fill(HIST("Event/trigger/hAnalysedToI"), mRunNumber);
       }
     }
-
   }
   PROCESS_SWITCH(SingleTrackQC, processQC_TriggeredData, "run single track QC on triggered data", false);
 
